@@ -154,6 +154,16 @@ files = [
 toml = ["tomli"]
 
 [[package]]
+name = "dotenv-python"
+version = "0.0.1"
+description = "Read .env(-ish) configuration file for python web applications."
+optional = false
+python-versions = "*"
+files = [
+    {file = "dotenv-python-0.0.1.zip", hash = "sha256:362e170ca8fd69a70c1aca1fda2ddad0ac270e161e81e59f4039ec11decc14fa"},
+]
+
+[[package]]
 name = "flake8"
 version = "7.1.1"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -492,4 +502,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "0914f9af7fa23b034379544d6d1f46cc188049f640ee4bda1ac58887ca9b28b1"
+content-hash = "141d142a3dd66c13dc01e6fbc970eeadde383283e06dca65331673aa089fd82a"
