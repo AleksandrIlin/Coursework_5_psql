@@ -1,9 +1,8 @@
 import psycopg2
-
+from src.api_hh import get_companies, get_vacancies, get_vacancy_list
 from src.config import config
 from src.db_creating import create_data_base, save_data_to_db
 from src.db_manager import DBManager
-from src.api_hh import get_vacancies, get_companies, get_vacancy_list
 
 params = config()
 data_company = get_companies()
@@ -15,20 +14,22 @@ conn = psycopg2.connect(dbname="vacancies", **params)
 save_data_to_db(vacancies, "vacancies", params)
 
 
-def main():
+def main() -> None:
     """
     Функция для взаимодействия с пользователем
     """
     while True:
         print("Программа выполнила запрос:")
         db_manager = DBManager(params)
-        print(f"Выберите запрос: \n"
-              f"1 - Список всех компаний и количество вакансий у каждой компании\n"
-              f"2 - Список всех вакансий с указанием названия компании, "
-              f"названия вакансии и зарплаты и ссылки на вакансию\n"
-              f"3 - Средняя зарплата по вакансиям\n"
-              f"4 - Список всех вакансий, у которых зарплата выше средней по всем вакансиям\n"
-              f"5 - Список всех вакансий, в названии которых содержатся запрашиваемое слово\n")
+        print(
+            "Выберите запрос: \n"
+            "1 - Список всех компаний и количество вакансий у каждой компании\n"
+            "2 - Список всех вакансий с указанием названия компании, "
+            "названия вакансии и зарплаты и ссылки на вакансию\n"
+            "3 - Средняя зарплата по вакансиям\n"
+            "4 - Список всех вакансий, у которых зарплата выше средней по всем вакансиям\n"
+            "5 - Список всех вакансий, в названии которых содержатся запрашиваемое слово\n"
+        )
         user_answer = input("Введите номер запроса\n")
         if user_answer == "1":
             companies_and_vacancies_count = db_manager.get_companies_and_vacancies_count()
@@ -42,8 +43,10 @@ def main():
 
         elif user_answer == "2":
             all_vacancies = db_manager.get_all_vacancies()
-            print(f"Список всех вакансий с указанием названия компании, "
-                  f"названия вакансии и зарплаты и ссылки на вакансию: {all_vacancies}\n")
+            print(
+                f"Список всех вакансий с указанием названия компании, "
+                f"названия вакансии и зарплаты и ссылки на вакансию: {all_vacancies}\n"
+            )
             choice = input("Завершить программу? Выберите да или нет: ")
             if choice == "да":
                 print("Программа завершена")
@@ -63,8 +66,10 @@ def main():
 
         elif user_answer == "4":
             vacancies_with_higher_salary = db_manager.get_vacancies_with_higher_salary()
-            print(f"Список всех вакансий, у которых зарплата выше средней по всем "
-                  f"вакансиям: {vacancies_with_higher_salary}\n")
+            print(
+                f"Список всех вакансий, у которых зарплата выше средней по всем "
+                f"вакансиям: {vacancies_with_higher_salary}\n"
+            )
             choice = input("Завершить программу? Выберите да или нет: ")
             if choice == "да":
                 print("Программа завершена")
@@ -72,7 +77,7 @@ def main():
             else:
                 continue
         elif user_answer == "5":
-            user_input = input(f'Введите слово: ')
+            user_input = input("Введите слово: ")
             vacancies_with_keyword = db_manager.get_vacancies_with_keyword(user_input)
             print(f"Список всех вакансий, в названии которых содержатся запрашиваемое слово: {vacancies_with_keyword}")
             choice = input("Завершить программу? Выберите да или нет: ")
@@ -86,5 +91,5 @@ def main():
             continue
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
