@@ -8,7 +8,7 @@ def create_data_base(database_name: str, params: Any) -> None:
     Создание базы данных и таблиц с данными о компаниях и вакансиях
     """
 
-    conn = psycopg2.connect(dbname="postgres", **params)
+    conn = psycopg2.connect(**params)
     conn.autocommit = True
 
     cur = conn.cursor()
@@ -19,7 +19,7 @@ def create_data_base(database_name: str, params: Any) -> None:
     cur.close()
     conn.close()
 
-    with psycopg2.connect(dbname="postgres", **params) as conn:
+    with psycopg2.connect(dbname=database_name, **params) as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -62,7 +62,7 @@ def save_data_to_db(data: list[dict[Any, Any]], database_name: str, params: Any)
     insert_q_2 = """
                  INSERT INTO companies (company_id, company_name, company_url) VALUES (%s, %s, %s)
                  """
-    with psycopg2.connect(dbname="postgres", **params) as conn:
+    with psycopg2.connect(dbname=database_name, **params) as conn:
         with conn.cursor() as cur:
             for vacancy in data:
                 cur.execute(insert_q_2, (vacancy["company_id"], vacancy["company_name"], vacancy["company_url"]))

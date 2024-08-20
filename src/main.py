@@ -9,9 +9,11 @@ data_company = get_companies()
 data = get_vacancies(data_company)
 vacancies = get_vacancy_list(data)
 
-create_data_base("vacancies", params)
-conn = psycopg2.connect(dbname="vacancies", **params)
-save_data_to_db(vacancies, "vacancies", params)
+user_choise = input("Введите имя базы данных в которую вы хотите сохранить данные полученные с HH.ru: ")
+
+create_data_base(user_choise, params)
+conn = psycopg2.connect(dbname=user_choise, **params)
+save_data_to_db(vacancies, user_choise, params)
 
 
 def main() -> None:
