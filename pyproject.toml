@@ -12,6 +12,7 @@ psycopg2-binary = "^2.9.9"
 dotenv-python = "^0.0.1"
 types-psycopg2 = "^2.9.21.20240417"
 types-requests = "^2.32.0.20240712"
+requests = "^2.32.3"
 
 
 [tool.poetry.group.dev.dependencies]
